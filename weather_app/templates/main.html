@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+<div class="card text-center mt">
+    <div class="card-body">
+        <h5 class="card-title">{{location.name}} / {{location.region}} / {{location.country}}</h5>
+        <h3>{{current.temp_c}}℃</h3>
+        <img src="{{current.icon}}" alt="not found">
+        <h4> {{location.localtime}}</h4>
+    </div>
+    <div class="card-footer text-muted">
+        <div class="container">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <table class="table table-condensed table-striped">
+                            <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Date</th>
+                                    <th>Min.Temperature</th>
+                                    <th>Max.Temperature</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                {% for i, j in forecast.items %}
+                                <tr data-toggle="collapse" data-target="#demo{{i}}" class="accordion-toggle">
+                                    <td><button class="btn btn-default btn-xs"><span
+                                                class="glyphicon glyphicon-eye-open"></span></button></td>
+                                    <td>{{i}}</td>
+                                    <td>{{j.mintemp_c}}℃</td>
+                                    <td>{{j.maxtemp_c}}℃</td>
+                                    <td>Click To see Hourly Based Temperature</td>
+
+                                </tr>
+
+                                <tr>
+                                    <td colspan="12" class="hiddenRow">
+                                        <div class="accordian-body collapse" id="demo{{i}}">
+                                            <table class="table table-striped">
+                                                <thead>
+                                                    <tr class="info">
+                                                        <th>Hour</th>
+                                                        <th>Temprature in ℃</th>
+                                                        <th>icon</th>
+                                                        <th>Condition</th>
+
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    {% for k, l in j.hours.items %}
+                                                    <tr data-toggle="collapse" class="accordion-toggle"
+                                                        data-target="#demo10">
+                                                        <td>{{k}}</td>
+                                                        <td>{{l.temp_c}}</td>
+                                                        <td><img src="{{l.icon}}" alt=""></td>
+                                                        <!-- <td>{{l.icon}}</td> -->
+                                                        <td>{{l.text}}</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-default btn-sm">
+                                                                <i class="glyphicon glyphicon-cog"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {% endfor %}
+
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+</div>
+
+{% endblock content %}
