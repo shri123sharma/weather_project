@@ -10,3 +10,9 @@ venv/
 *.log
 __pycache__/
 
+# Ignore SQLite database file
+db.sqlite3
+
+# Ignore .env file
+.env
+
